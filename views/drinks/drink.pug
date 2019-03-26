@@ -1,0 +1,57 @@
+html
+  head
+    title My Beverage
+    link(
+      rel='stylesheet'
+      href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css'
+    )
+    link(
+      rel='stylesheet'
+      href='/stylesheets/layout.css'
+    )
+  body
+    main.container.is-fluid
+      .section
+        form(action="/drinks/search", method="POST")
+            .field
+              .control
+                input.input(name="drink_name", placeholder="Drink Name")/            
+            .field
+              .control
+                button.button.is-link.is-fullwidth Search         
+        form(action="/drinks/new", method="GET")
+            .field
+              .control
+                button.button.is-link.is-fullwidth New Drink   
+        form(action="/categories/new", method="GET")
+            .field
+              .control
+                button.button.is-link.is-fullwidth New Category   
+        - if(error)
+          .field
+            .control
+              p= error                      
+      - if (drinksList && drinksList.length > 0)
+        - for (let i = 0; i < drinksList.length; i += 1)
+          .card.box
+            .card-content
+              .media
+                .media-left
+                  figure.image.is-128x128
+                    img(src=`${drinksList[i].imageUrl}` alt='Placeholder image')
+                a(href='/categories')
+                  .media-content
+                    p.title.is-4 
+                    = `${drinksList[i].category}`
+              a(href=`/drinks/${drinksList[i].id}`)
+                .content
+                  | Drink Name: 
+                  = `${drinksList[i].name}`
+                  br
+                  | Comment: 
+                  = `${drinksList[i].comment}`
+                  br
+                  | By: 
+                  = `${drinksList[i].username}`
+                  br
+                  = `${drinksList[i].createdAt}`

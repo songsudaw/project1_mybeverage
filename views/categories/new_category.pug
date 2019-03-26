@@ -1,0 +1,26 @@
+doctype html
+
+html
+  head
+   title My Beverage
+   meta(charset="utf-8")
+   link(
+     rel="stylesheet"
+     type="text/css"
+     href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"
+   )
+  body
+    main.container.is-fluid
+      .section
+        form(method="POST" action="/categories" enctype="application/x-www-form-urlencoded")
+          .field
+            .field
+              .control
+                input.input(type="text", name="category_name", id="category_name", placeholder="Category Name")/
+            .field
+              .control
+                button.button.is-link.is-fullwidth Create Category
+            - if(error)
+            .field
+              .control
+                p= error

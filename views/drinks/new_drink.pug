@@ -1,0 +1,44 @@
+doctype html
+
+html
+  head
+   title My Beverage
+   meta(charset="utf-8")
+   link(
+     rel="stylesheet"
+     type="text/css"
+     href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"
+   )
+  body
+    main.container.is-fluid
+      .section
+        form(method="POST" action="/drinks" enctype="application/x-www-form-urlencoded")
+          .field
+            - if (categoriesList && categoriesList.length > 0)
+              .field
+                .control
+                  .select
+                    select(name='select_cat')
+                      option Select dropdown
+                      - for (let i = 0; i < categoriesList.length; i += 1)
+                        option(value=`${categoriesList[i].name}`)
+                          = `${categoriesList[i].name}`
+            .field
+              .control
+                input.input(type="text", name="drink_name", id="drink_name", placeholder="Drink Name")/
+            .field
+              .control
+                input.input(type="text", name="image_url", id="image_url", placeholder="Image Url")/
+            .field
+              .control
+                input.input(type="text", name="comment", id="comment", placeholder="Comment")/
+            .field
+              .control
+                input.input(type="hidden", name="username", id="username", value=`${username}`)/
+            .field
+              .control
+                button.button.is-link.is-fullwidth Create Drink
+            - if(error)
+            .field
+              .control
+                p= error

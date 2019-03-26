@@ -1,0 +1,43 @@
+html
+  head
+    title My Beverage
+    link(
+      rel='stylesheet'
+      href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css'
+    )
+    link(
+      rel='stylesheet'
+      href='/stylesheets/layout.css'
+    )
+  body
+    main.container.is-fluid
+      .section
+        - if (drink && (typeof(drink) !== undefined))
+          .card.box
+            a.delete(href=`/drinks/${drink.id}?_method=delete`)
+            .card-content
+              .media
+                .media-left
+                  figure.image.is-128x128
+                    img(src=`${drink.imageUrl}` alt='Placeholder image')
+                a(href='/categories')
+                  .media-content
+                    p.title.is-4 
+                    = `${drink.category}`
+              a(href=`/drinks/${drink.id}`)
+                .content
+                  | Drink Name: 
+                  = `${drink.name}`
+                  br
+                  | Comment: 
+                  = `${drink.comment}`
+                  br
+                  | By: 
+                  = `${drink.username}`
+                  br
+                  = `${drink.createdAt}`
+          form(action=`/drinks/${drink.id}/edit`, method="GET")
+            .field
+              .control
+                button.button.is-link.is-fullwidth Edit         
+
